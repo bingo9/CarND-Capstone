@@ -23,7 +23,8 @@ class PID(object):
         derivative = (error - self.last_error) / sample_time;
 
         val = self.kp * error + self.ki * integral + self.kd * derivative;
-
+        #str="S time={}, error={} integral={} derivative={} Kp={} Ki={} Kd={} min={} max={} val={}".format(sample_time,error,integral, derivative, self.kp,self.ki,self.kd,self.min,self.max,val)
+        #rospy.logdebug(str)
         if val > self.max:
             val = self.max
         elif val < self.min:
@@ -31,8 +32,5 @@ class PID(object):
         else:
             self.int_val = integral
         self.last_error = error
-
-        #rospy.logwarn("Throttle: {0}".format(val))
-        #rospy.logwarn("Velocity error: {0}".format(error))
 
         return val
